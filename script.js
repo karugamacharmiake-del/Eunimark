@@ -8,6 +8,65 @@ window.addEventListener('load', () => {
     }, 3500); // Remove splash screen after 3.5 seconds
 });
 
+// Mobile menu toggle
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+const closeMenuBtn = document.getElementById('closeMenuBtn');
+const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+if (hamburgerBtn) {
+    hamburgerBtn.addEventListener('click', () => {
+        mobileMenu.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+}
+
+if (closeMenuBtn) {
+    closeMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+}
+
+// Close menu when clicking a link
+mobileNavLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        if (!link.hasAttribute('target')) {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+});
+
+// Close menu when clicking outside
+mobileMenu.addEventListener('click', (e) => {
+    if (e.target === mobileMenu) {
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+});
+
+// Property search functionality with mock data
+const searchBtn = document.querySelector('.search-btn');
+if (searchBtn) {
+    searchBtn.addEventListener('click', () => {
+        const buyRent = document.querySelector('.filter-select:nth-of-type(1)').value;
+        const property = document.querySelector('.filter-select:nth-of-type(2)').value;
+        const location = document.querySelector('.filter-select:nth-of-type(3)').value;
+        const price = document.querySelector('.filter-select:nth-of-type(4)').value;
+
+        // Mock search results
+        const message = `🏠 Search Results:\n\n📍 ${property} for ${buyRent}\n📌 Location: ${location}\n💰 Max Price: ${price}\n\nFound 3 properties matching your criteria!\n\nScroll down to view "Available Houses" section for demo listings.`;
+
+        alert(message);
+
+        // Scroll to houses section
+        setTimeout(() => {
+            document.getElementById('houses').scrollIntoView({ behavior: 'smooth' });
+        }, 500);
+    });
+}
+
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
