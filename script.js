@@ -1,11 +1,25 @@
-// Splash screen removal
+// Splash screen removal - improved
 window.addEventListener('load', () => {
-    setTimeout(() => {
-        const splashScreen = document.getElementById('splashScreen');
-        if (splashScreen) {
-            splashScreen.style.display = 'none';
-        }
-    }, 3500); // Remove splash screen after 3.5 seconds
+    const splashScreen = document.getElementById('splashScreen');
+    if (splashScreen) {
+        // Auto-remove after 3.5 seconds
+        setTimeout(() => {
+            splashScreen.style.opacity = '0';
+            splashScreen.style.pointerEvents = 'none';
+            setTimeout(() => {
+                splashScreen.style.display = 'none';
+            }, 500);
+        }, 3500);
+
+        // Allow click to skip
+        splashScreen.addEventListener('click', () => {
+            splashScreen.style.opacity = '0';
+            splashScreen.style.pointerEvents = 'none';
+            setTimeout(() => {
+                splashScreen.style.display = 'none';
+            }, 500);
+        });
+    }
 });
 
 // Mobile menu toggle
